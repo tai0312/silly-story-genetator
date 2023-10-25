@@ -16,11 +16,18 @@ export default function App() {
   const [yItem,setYItem] = useState(randomValueFromArray(yChoices));
   const [zItem,setZItem] = useState(randomValueFromArray(zChoices));
   const [name,setName] = useState("Bob");
-  const ukus = "us";
-  let customname = "";
-  
+  const [ukus,setUkUs] = useState("us");
+  const [weight,setWeight] = useState("300 pounds");
+  const [temperature,setTemperature] = useState("94 fahrenheit");
+  const [customName,setCustomname] = useState("");
+
   function handleChange(event){
-    customname = event.target.value;
+    setCustomname(event.target.value);
+  }
+
+  function handleChangeUkUs(event){
+    setUkUs(event.target.value);
+    console.log(customName);
   }
 
   function handleClick(){
@@ -28,10 +35,18 @@ export default function App() {
     setYItem(randomValueFromArray(yChoices));
     setZItem(randomValueFromArray(zChoices));
     setShowStory(true);
-    if(customname == ""){
+    console.log(customName);
+    if(customName === ""){
       setName("Bob");
     } else {
-      setName(customname);
+      setName(customName);
+    }
+    if(ukus === "us"){
+      setWeight("300 pounds");
+      setTemperature("94 fahrenheit");
+    } else {
+      setWeight("21 stone");
+      setTemperature("34 centigrade");
     }
   }
 
@@ -45,19 +60,18 @@ export default function App() {
       </div>
       <div>
         <label htmlFor="us">US</label>
-        <input type="radio" value="us" checked={ukus === "us"} />
+        <input type="radio" value="us" checked={ukus === "us"} onChange={handleChangeUkUs}/>
         <label htmlFor="uk">UK</label>
-        <input type="radio" value="uk" checked={ukus === "uk"} />
+        <input type="radio" value="uk" checked={ukus === "uk"} onChange={handleChangeUkUs}/>
       </div>
       <div>
         <button onClick={handleClick}>Generate random story</button>
       </div>
       {showStory && (
         <p>
-          It was 94 fahrenheit outside, so {xItem} went for a walk. When they
+          It was {temperature} outside, so {xItem} went for a walk. When they
           got to {yItem}, they stared in horror for a few moments, then {zItem}.
-          {name} saw the whole thing, but was not surprised — {xItem} weighs 300
-          pounds, and it was a hot day.
+          {name} saw the whole thing, but was not surprised — {xItem} weighs {weight}, and it was a hot day.
         </p>
       )}
     </>
